@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 export const ContactList = ({ contacts, onDelete }) => {
+  console.log(typeof contacts);
+  console.log(contacts);
   return (
     <>
       {contacts.map(({ id, name, number }) => (

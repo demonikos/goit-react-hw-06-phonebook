@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { useDispatch } from 'react-redux';
+import { addContact } from 'redux/store';
 
 export const ContactForm = ({ onSubmit }) => {
   const [state, setState] = useState({
@@ -8,13 +10,29 @@ export const ContactForm = ({ onSubmit }) => {
     number: '',
   });
 
+  const dispatch = useDispatch();
+
+  // const onSubmitHandler = event => {
+  //   event.preventDefault();
+  //   const id = nanoid();
+  //   onSubmit(id, state.name, state.number);
+  //   setState(prevState => {
+  //     return { ...prevState, name: '', number: '' };
+  //   });
+  // };
+
   const onSubmitHandler = event => {
     event.preventDefault();
     const id = nanoid();
     onSubmit(id, state.name, state.number);
+    // dispatch(addContact({ id, name, number }));
     setState(prevState => {
       return { ...prevState, name: '', number: '' };
-    });
+    // // dispatch(addContact({id, state.name, state.number}));
+    // setState();
+    }
+    )
+    ;
   };
 
   const onInputChange = event => {
@@ -22,6 +40,15 @@ export const ContactForm = ({ onSubmit }) => {
       return { ...prevState, [event.target.name]: event.target.value };
     });
   };
+
+  // const onInputChange = event => {
+  //   setState(() => {
+  //     return {[event.target.name]: event.target.value };
+  //   });
+  // };
+
+
+
 
   return (
     <form onSubmit={onSubmitHandler}>
