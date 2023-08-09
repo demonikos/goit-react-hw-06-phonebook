@@ -1,20 +1,46 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux';
+import { getContacts, getFilter } from 'redux/selectors';
+import { addContact } from 'redux/store';
 
-export const ContactForm = ({ onSubmit }) => {
+export const ContactForm = () => {
   const [state, setState] = useState({
     name: '',
     number: '',
   });
 
+  const dispatch = useDispatch();
+  const filterRedux = useSelector(getFilter);
+  const contactRedux = useSelector(getContacts);
+  const contacts = filterRedux === '' ? contactRedux : filteredNames();
+
+  const addNewContact = (id, name, number) => {
+    if (
+      !contacts.some(elem => elem.name.toLowerCase() === name.toLowerCase())
+    ) {
+      dispatch(addContact({ id, name, number }));
+    } else {
+      alert(`${name} is already exist! Write another one!`);
+    }
+  };
+
+  
+  function filteredNames() {
+    return contactRedux.filter(elem =>
+      elem.name.toLowerCase().includes(filterRedux)
+    );
+  }
+
+
   const onSubmitHandler = event => {
     event.preventDefault();
     const id = nanoid();
-    onSubmit(id, state.name, state.number);
-    setState(prevState => {
-      return { ...prevState, name: '', number: '' };
-    });
+    addNewContact(id, state.name, state.number);
+    // setState(prevState => {
+    //   return { ...prevState, name: '', number: '' };
+    // });
   };
 
   const onInputChange = event => {
@@ -50,6 +76,6 @@ export const ContactForm = ({ onSubmit }) => {
   );
 };
 
-ContactForm.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
+// ContactForm.propTypes = {
+//   onSubmit: PropTypes.func.isRequired,
+// };
