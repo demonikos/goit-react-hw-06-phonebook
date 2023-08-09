@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-// import PropTypes from 'prop-types';
 import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContacts, getFilter } from 'redux/selectors';
@@ -26,21 +25,16 @@ export const ContactForm = () => {
     }
   };
 
-  
   function filteredNames() {
     return contactRedux.filter(elem =>
       elem.name.toLowerCase().includes(filterRedux)
     );
   }
 
-
   const onSubmitHandler = event => {
     event.preventDefault();
     const id = nanoid();
     addNewContact(id, state.name, state.number);
-    // setState(prevState => {
-    //   return { ...prevState, name: '', number: '' };
-    // });
   };
 
   const onInputChange = event => {
@@ -75,7 +69,3 @@ export const ContactForm = () => {
     </form>
   );
 };
-
-// ContactForm.propTypes = {
-//   onSubmit: PropTypes.func.isRequired,
-// };

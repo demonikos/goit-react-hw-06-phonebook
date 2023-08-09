@@ -1,12 +1,9 @@
 import React from 'react';
-// import PropTypes from 'prop-types';
 import { filterContacts } from 'redux/store';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilter } from 'redux/selectors';
 
-
 export const Filter = () => {
-
   const dispatch = useDispatch();
   const filterRedux = useSelector(getFilter);
 
@@ -25,8 +22,3 @@ export const Filter = () => {
     </>
   );
 };
-
-// Filter.propTypes = {
-//   // input: PropTypes.string.isRequired,
-//   // onChange: PropTypes.func.isRequired,
-// };
