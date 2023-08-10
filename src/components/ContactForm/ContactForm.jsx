@@ -20,6 +20,9 @@ export const ContactForm = () => {
       !contacts.some(elem => elem.name.toLowerCase() === name.toLowerCase())
     ) {
       dispatch(addContact({ id, name, number }));
+      setState(prevState => {
+        return { ...prevState, name: '', number: ''};
+      });
     } else {
       alert(`${name} is already exist! Write another one!`);
     }
